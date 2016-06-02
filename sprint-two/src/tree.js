@@ -19,8 +19,24 @@ treeMethods.addChild = function(value){
 };
 
 treeMethods.contains = function(target){
+  var result = false;
 
+  var traverse = function(node){
+    if(node.value === target){
+      result = true;
+    }
+
+    for(var i = 0; i < node.children.length; i++){
+      traverse(node.children[i]);
+    }
+  };
+
+
+  traverse(this);
+  return result;
 };
+
+
 
 
 /*
