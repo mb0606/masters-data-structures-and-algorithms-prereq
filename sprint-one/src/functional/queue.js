@@ -28,17 +28,16 @@ var Queue = function(){
 
   someInstance.dequeue = function(){
 
-    if(tail<head){
+    if(someInstance.size()){
 
       var result = storage[tail];
 
       delete storage[tail];
 
       tail++
+    }
 
       return result;
-
-    }
 
   };
 
@@ -46,7 +45,7 @@ var Queue = function(){
 
   someInstance.size = function(){
 
-    return Math.max(head - tail, 0);
+    return head - tail;
 
   };
 

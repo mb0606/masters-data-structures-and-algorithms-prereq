@@ -28,23 +28,11 @@ var Stack = function(){
 
     size && size--;
 
-    var temp = storage[size];
+    var poppedValue = storage[size];
 
     delete storage[size];
 
-
-
-    _.each(storage,function(value,key){
-
-      storage[key--] = value;
-
-    })
-
-
-
-
-
-    return temp;
+    return poppedValue;
 
   };
 
@@ -55,8 +43,6 @@ var Stack = function(){
     return size;
 
   };
-
-
 
   return someInstance;
 
