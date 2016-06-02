@@ -7,12 +7,12 @@ var LinkedList = function(){
     // check if head exists or is null
     if(this.head === null){
       //if it doesn't we addd the node to the head;
-      this.head = new Node(value);
+      this.head = Node(value);
       // set tail equal to head since there is only one item
       this.tail = this.head;
     } else {
       // set value of next on current tail to the new NODE
-      this.tail.next = new Node(value);
+      this.tail.next = Node(value);
       // set tail to the new NODE we created in next to be the tail
       this.tail = this.tail.next;
     }
