@@ -37,7 +37,9 @@ var DoubleLinkedList = function(){
 
   list.addToHead = function(value){
     // find current head
-    this.head.previous = Node.value
+    this.head.previous = Node(value);
+    this.head.previous.next = this.head;
+    this.head = this.head.previous;
 
 
 
