@@ -1,6 +1,7 @@
 var HashTable = function(){
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
+  this._storage.length = 0;
 };
 
 HashTable.prototype.insert = function(k, v){
@@ -12,6 +13,7 @@ HashTable.prototype.insert = function(k, v){
   if(!bucket){
     bucket = [];
     this._storage.set(i, bucket);
+    this._storage.length++;
   };
 
   var alreadyExists = false;
@@ -29,10 +31,10 @@ HashTable.prototype.insert = function(k, v){
     bucket.push([k,v]);
   }
 
-
-
-
+  this.checkStorageUsage();
 };
+
+
 
 HashTable.prototype.retrieve = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
@@ -68,18 +70,30 @@ HashTable.prototype.remove = function(k){
     var positionInBucket = bucket[pos]
     if( k === positionInBucket[0]){
       console.log("This is inside the IF",positionInBucket)
-      // bucket.splice(pos, 1);
-            console.log(bucket);
+
 
       bucket.splice(pos, 1);
+      this._storage.length++;
 
-      console.log(bucket);
 
 
 
     }
 
   }
+  this.checkStorageUsage();
+
+};
+
+HashTable.prototype.checkStorageUsage = function(){
+
+  if(this._storage.length >= this.limit * .75){
+    this.limit *= 2;
+  }
+  if(this._storage.length <= this.limit * .25){
+    this.limit /= 2;
+  }
+
 
 };
 
