@@ -1,7 +1,10 @@
 var HashTable = function(){
   this._limit = 8;
+  this._bucketMax = 1;
+  this._tupleCounter = 0;
+  this._storageMax= this._limit * this._bucketMax;
   this._storage = LimitedArray(this._limit);
-  this._storage.length = 0;
+
 };
 
 HashTable.prototype.insert = function(k, v){
@@ -13,7 +16,7 @@ HashTable.prototype.insert = function(k, v){
   if(!bucket){
     bucket = [];
     this._storage.set(i, bucket);
-    this._storage.length++;
+
   };
 
   var alreadyExists = false;
@@ -29,9 +32,12 @@ HashTable.prototype.insert = function(k, v){
 
   if(!alreadyExists){
     bucket.push([k,v]);
+    // somecount of tup
+    this._tupleCounter++;
+
   }
 
-  this.checkStorageUsage();
+  this.checkStorageDouble();
 };
 
 
@@ -73,7 +79,8 @@ HashTable.prototype.remove = function(k){
 
 
       bucket.splice(pos, 1);
-      this._storage.length++;
+      this._tupleCounter--;
+
 
 
 
@@ -81,18 +88,44 @@ HashTable.prototype.remove = function(k){
     }
 
   }
-  this.checkStorageUsage();
+  this.checkStorageHalf();
 
 };
 
-HashTable.prototype.checkStorageUsage = function(){
+HashTable.prototype.checkStorageDouble = function(){
+ console.log("Check Tuple CotupleCounter",this._tupleCounter)
 
-  if(this._storage.length >= this.limit * .75){
-    this.limit *= 2;
+  if(this._tupleCounter >= this._storageMax * .75){
+    this._limit *= 2;
+
+     console.log("Limit is doubled",this._limit)
   }
-  if(this._storage.length <= this.limit * .25){
-    this.limit /= 2;
+
+
+};
+
+HashTable.prototype.checkStorageHalf = function(){
+  console.log("Check Storage half",this._tupleCounter)
+
+
+  if(this._tupleCounter <= this._storageMax * .25){
+  console.log("Check Storage half: IN IF",this._tupleCounter)
+    this._limit /= 2;
+
+  console.log("After divide:",this._limit)
+
   }
+
+
+};
+
+HashTable.prototype.reHash = function(currentStorage){
+  var tempStorage =[];
+    this.each = function(callback){
+    for(var i = 0; i < storage.length; i++){
+      for(var j = 0; j < )
+    }
+  };
 
 
 };
